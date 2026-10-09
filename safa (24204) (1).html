@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BloomCraft Flowers</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#fffaf5; }
+    header { background:#e07a8d; color:#fff; padding:15px; text-align:center; }
+    .products { padding:20px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:15px; }
+    .card { border:1px solid #ddd; border-radius:8px; overflow:hidden; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    .card img { width:100%; height:180px; object-fit:cover; }
+    /* Bigger images for product 1, 2, 5 */
+    .card.big img { height:300px; }
+    .card-body { padding:10px; }
+    .price { font-weight:bold; color:#c16477; }
+    .btn { background:#9ed2c6; border:none; padding:8px 12px; border-radius:6px; cursor:pointer; }
+    .btn:hover { background:#7bb5a9; }
+    footer { background:#eee; text-align:center; padding:10px; margin-top:20px; }
+    .modal.hidden { display:none; }
+    .modal { position:fixed; inset:0; background:rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
+    .modal-content { background:#fff; padding:20px; border-radius:8px; width:400px; }
+    .cart-item { display:flex; justify-content:space-between; margin:5px 0; }
+    /* Contact + Order form styling */
+    .contact, .order { padding:20px; background:#f9f9f9; margin:20px; border-radius:8px; }
+    form input, form textarea { width:100%; padding:8px; margin:8px 0; border:1px solid #ccc; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BloomCraft Flowers</h1>
+    <button id="openCart" class="btn">Cart</button>
+  </header>
+
+  <section class="products">
+    <h2>Our Products</h2>
+    <div class="grid">
+      <!-- Product 1 -->
+      <article class="card big" data-name="Flower 1" data-price="300">
+        <img src="C:\Users\harma\OneDrive\Documents\WhatsApp Image 2026-01-08 at 10.18.43 PM.jpeg" alt="Flower 1" />
+        <div class="card-body">
+          <h4>Flower 1</h4>
+          <div class="price">Rs 300</div>
+          <button class="btn add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+      <!-- Product 2 -->
+      <article class="card big" data-name="Flower 2" data-price="300">
+        <img src="C:\Users\harma\OneDrive\Documents\WhatsApp Image 2026-01-08 at 10.18.42 PM.jpeg"?:>l alt="Flower 2" />
+        <div class="card-body">
+          <h4>Flower 2</h4>
+          <div class="price">Rs 300</div>
+          <button class="btn add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+      <!-- Product 3 -->
+      <article class="card" data-name="Flower 3" data-price="700">
+        <img src="C:\Users\harma\OneDrive\Documents\WhatsApp Image 2026-01-08 at 10.19.35 PM.jpeg" alt="Flower 3" />
+        <div class="card-body">
+          <h4>Flower 3</h4>
+          <div class="price">Rs 700</div>
+          <button class="btn add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+      <!-- Product 4 -->
+      <article class="card" data-name="Flower 4" data-price="200">
+        <img src="C:\Users\harma\OneDrive\Documents\WhatsApp Image 2026-01-08 at 10.19.38 PM.jpeg" alt="Flower 4" />
+        <div class="card-body">
+          <h4>Flower 4</h4>
+          <div class="price">Rs 200</div>
+          <button class="btn add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+      <!-- Product 5 -->
+      <article class="card big" data-name="Flower 5" data-price="250">
+        <img src="C:\Users\harma\OneDrive\Documents\WhatsApp Image 2026-01-08 at 10.18.44 PM.jpeg" alt="Flower 5" />
+        <div class="card-body">
+          <h4>Flower 5</h4>
+          <div class="price">Rs 250</div>
+          <button class="btn add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+      <!-- Product 6 -->
+      <article class="card" data-name="Flower 6" data-price="350">
+        <img src="C:\Users\harma\OneDrive\Documents\WhatsApp Image 2026-01-08 at 10.19.37 PM.jpeg" alt="Flower 6" />
+        <div class="card-body">
+          <h4>Flower 6</h4>
+          <div class="price">Rs 350</div>
+          <button class="btn add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <p>📞 Phone: +92 300 1234567</p>
+    <p>📧 Email: info@bloomcraftflowers.com</p>
+  </section>
+
+  <!-- Online Order Section -->
+  <section class="order">
+    <h2>Place Your Order Online</h2>
+    <form>
+      <label>Your Name:</label>
+      <input type="text" name="name" required />
+      <label>Your Phone:</label>
+      <input type="text" name="phone" required />
+      <label>Product Details:</label>
+      <textarea name="details" rows="4" required></textarea>
+      <button class="btn" type="submit">Book Now</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 BloomCraft Flowers</p>
+  </footer>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="modal hidden">
+    <div class="modal-content">
+      <button id="closeCart" class="btn">Close</button>
+      <h3>Your Cart</h3>
+      <div id="cartItems"></div>
+      <div><strong>Total:</strong> <span id="cartTotal">Rs 0</span></div>
+    </div>
+  </div>
+
+  <script>
+    const cart = [];
+    const productCards = document.querySelectorAll('.card');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const cartModal = document.getElementById('cartModal');
+    const openCartBtn = document.getElementById('openCart');
+    const closeCartBtn = document.getElementById('closeCart');
+
+    productCards.forEach(card => {
+      card.querySelector('.add-to-cart').addEventListener('click', () => {
+        const name = card.dataset.name;
+        const price = Number(card.dataset.price);
+        const idx = cart.findIndex(i => i.name === name);
+        if (idx >= 0) {
+          cart[idx].quantity += 1;
+        } else {
+          cart.push({ name, price, quantity: 1 });
+        }
+        renderCart();
+        cartModal.classList.remove('hidden');
+      });
+    });
+
+    function renderCart() {
+      cartItemsEl.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML = `
+          <span>${item.name} - Rs ${item.price} x ${item.quantity}</span>
+          <button class="btn" onclick="removeItem(${index})">Remove</button>
+        `;
+        cartItemsEl.appendChild(row);
+      });
+      cartTotalEl.textContent = 'Rs ' + total;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    openCartBtn.addEventListener('click', () => cartModal.classList.remove('hidden'));
+    closeCartBtn.addEventListener('click', () => cartModal.classList.add('hidden'));
+    cartModal.addEventListener('click', (e) => { if (e.target === cartModal) cartModal.classList.add('hidden'); });
+  </script>
+</body>
+</html>
